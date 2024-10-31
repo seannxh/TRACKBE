@@ -4,7 +4,7 @@ const Track = require('../models/tracks.js')
 
 router.post('/', async (req, res) => {
     try{
-        const {title, artist,} = req.body
+        const {title, artist, coverArtUrl, soundClipUrl} = req.body
         const newTrack = await Track.create({title, artist, coverArtUrl, soundClipUrl})
         res.status(201).json(newTrack)
     }catch(err){
@@ -38,6 +38,7 @@ router.put('/:trackId', async (req, res) => {
         const updateTrack = await Track.findByIdAndUpdate(
             req.params.trackId,
             req.body,
+            {title, artist, coverArtUrl, soundClipUrl},
             { new: true }
         )
         res.status(200).json(updateTrack);
